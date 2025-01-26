@@ -1,14 +1,15 @@
 from app import app
 from flask import render_template, request, session, redirect
 from db import db
+from sqlalchemy import text
 
 import users
 
 @app.route("/")
 def index():
-    result  = db.session.execute("SELECT name, id FROM areas ORDER BY id ASC")
+    result  = db.session.execute(text("SELECT name, id FROM areas ORDER BY id ASC"))
     areas = result.fetchall()
-    result = db.session.execute("SELECT id, topic, area_id FROM topics ORDER BY id ASC")
+    result = db.session.execute(text("SELECT id, topic, area_id FROM topics ORDER BY id ASC"))
     topics = result.fetchall()
     
     return render_template("index.html", areas=areas, topics=topics)
@@ -46,7 +47,7 @@ def register():
 
 @app.route("/new")
 def new():
-    result = db.session.execute("SELECT name FROM areas")
+    result = db.session.execute(text("SELECT name FROM areas"))
     areas = result.fetchall()
     return render_template("new.html", areas=areas)
 

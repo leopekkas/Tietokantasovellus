@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for tietokantasovellus-saraste on 2025-01-26T13:45:48+02:00
+# fly.toml app configuration file generated for tietokantasovellus-saraste on 2025-01-26T20:57:56+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -9,7 +9,7 @@ primary_region = 'arn'
 [build]
 
 [http_service]
-  internal_port = 5000
+  internal_port = 8080
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
@@ -17,6 +17,6 @@ primary_region = 'arn'
   processes = ['app']
 
 [[vm]]
-  memory = '512mb'
+  memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
