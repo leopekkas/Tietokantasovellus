@@ -2,6 +2,8 @@ from app import app
 from flask import render_template, request, session, redirect
 from db import db
 
+import users
+
 @app.route("/")
 def index():
     result  = db.session.execute("SELECT name, id FROM areas ORDER BY id ASC")
