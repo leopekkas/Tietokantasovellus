@@ -1,22 +1,17 @@
-<h1><span style="color:yellow">Bee</span>Chat</h1>
-<hr>
+<div class="header">
+    <a href="/"><h1><span style="color:yellow">Bee</span>Chat</h1></a>
+    <hr>
+</div>
 
 <h3><b>{{ topic[1] }}</b></h3><br><br>
 {% for message in messages %}
-    {% if session.user_id == message[3] %}
-    <form action="/delete", method="POST">
-        <div class="messagebox"><b>{{ message[2] }}</b> 
-            |   <input type="submit" value="delete message"><hr><br>{{ message[1] }}</div>
-            <input type="hidden" name="message_id" value="{{ message[0] }}">
-            <input type="hidden" name="id" value="{{ topic[0]
-
-}}">
-        <br>
-    </form>
-    {% else %}
-        <div class="messagebox"><b>{{ message[2] }}</b><hr><br>{{ message[1] }}</div>
-    <br>
-    {% endif %}
+  {% if session.user_id == message[3] %}
+  <div class="messagebox"><b>{{ message[2] }}</b>
+      | <form action="/edit/{{ message[0] }}" , method="POST">
+          <input type="hidden" name="message_id" value="{{ message[0] }}">
+          <input type="submit" value="edit">
+      </form>
+  {% endif %}
 {% endfor %}
 
 {% if session.user_id %}
