@@ -48,44 +48,70 @@
 
     </div>
 
+    <div class="grid">
+      {% if admin %}
+      <p>
+      <h2>Your conversation areas</h2><br>
+      </p>
+      <b><a href="/create_area">Create a new private area</a></b><br>
+      <br>
+      {% else %}
+      <p>
+        {% if session.user_id %}
+      <h2>Your private conversation areas</h2>
+      {% endif %}
+      </p>
+      {% endif %}
 
-<a href="/new">New messaging area</a>
-    {% else %}
-    <a href="login">Sign in</a>
-    or
-    <a href="register">Create an account</a>
-    {% endif %}
+      <p>
+        {% for private_area in private_areas %}
+        {% if session.user_id == private_area[2] %}
+      <div>
+        <h4>{{ private_area[0] }}</h4> <a href="/add_users/{{ private_area[1] }}">Add members</a><br>
+        <a href="/new/{{ private_area[1] }}">Start a new conversation</a></p>
+        <hr>
+        {% for topic in topics %}
+          {% if topic[2] == private_area[1] %}
+          <ul>
+          <li>{{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a><br></li>
+          {% endif %}
+      </ul>
+        {% endfor %}
 
-    <style>
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-gap: 1em;
-        }
-        .grid>div {
-            background-color: cadetblue;
-            padding: 2fr;
-        }
-        a {
-            color: rgb(66, 0, 14);
+      </div>
+      {% else %}
+      <div>
+        <h4>{{ private_area[0] }}</h4> | <a href="/new/{{ private_area[1] }}">Start a new conversation</a></p>
+        <hr>
+        {% for topic in topics %}
+          {% if topic[2] == private_area[1] %}
+          <ul>
+          <li>{{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a><br></li>
+          {% endif %}
+          </ul>
+        {% endfor %}
+
+      </div>
+      {% endif %}
+      {% endfor %}
+    </p>
+
+  </div>
+</body>
+
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1em;
+  }
+    .grid>div {
+      background-color: cadetblue;
+      padding: 2fr;
+    }
+    a {
+      color: rgb(66, 0, 14);
             
-        }
-    </style>
-    <body>
-        <div class="grid">
-            {% for area in areas %}
-            <div>
-                <h4>{{ area[0] }}</h4>
-                <hr>
-                
-                {% for topic in topics %}
-                {% if topic[2] == area[1] %}
-                {{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a>
-                <br>
-                {% endif %}
-                {% endfor %}
-            </div>
-            {% endfor %}
-        </div>
-    </body>
-    <hr>
+    }
+</style>
