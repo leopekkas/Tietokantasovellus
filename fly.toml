@@ -1,10 +1,12 @@
-# fly.toml app configuration file generated for bin-damp-feather-4291 on 2025-01-26T13:18:35+02:00
+# fly.toml app configuration file generated for tietokantasovellus-saraste on 2025-01-26T13:45:48+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'bin-damp-feather-4291'
+app = 'tietokantasovellus-saraste'
 primary_region = 'arn'
+
+[build]
 
 [http_service]
   internal_port = 5000
@@ -15,6 +17,6 @@ primary_region = 'arn'
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
+  memory = '512mb'
   cpu_kind = 'shared'
   cpus = 1
