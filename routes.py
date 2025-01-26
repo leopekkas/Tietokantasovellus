@@ -44,11 +44,6 @@ def register():
             return render_template("error.html", message="Error showing the registration page.")
 
 
-@app.route("/logout")
-def logout():
-    users.logout()
-    return redirect("/")
-
 @app.route("/new")
 def new():
     result = db.session.execute("SELECT name FROM areas")
