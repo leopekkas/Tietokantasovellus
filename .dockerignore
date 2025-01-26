@@ -1,8 +1,0 @@
-# flyctl launch added from .gitignore
-**/.env
-__pycache__
-venv
-.github
-**/Dockerfile
-**/schema.sql.save
-fly.toml
