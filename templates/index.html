@@ -1,19 +1,59 @@
 <h1><span style="color:yellow">Bee</span>Chat</h1>
 <hr>
 <br>
-{% if session.user_id %}
-You are logged in. <a href="logout"> | logout</a>
-<p>
-    <br>
-</p>
+
+<body>
+  <p>
+    {% if session.user_id %}
+      You are logged in. <a href="logout"> | logout</a>
+
+    {% else %}
+      <a href="login">Sign in</a>
+      or
+      <a href="register">Create an account</a>
+    {% endif %}
+  </p> 
+
+  <div class="searchbar">
+    <form action="/search" method="GET">
+      <input type="text" name="word" class="searchbox__input" placeholder="Search"/>
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  
+  <div class="grid">
+    {% for area in areas %}
+    <div>
+        {% if session.user_id %}
+        <p>
+        <h4>{{ area[0] }}</h4> <a href="/new/{{ area[1] }}">Start a new conversation</a></p>
+        {% else %}
+        <h4>{{ area[0] }}</h4>
+        {% endif %}
+        <hr>
+
+        {% for topic in topics %}
+          {% if topic[2] == area[1] %}
+          <ul>
+            <li>{{ topic[1] }} | <a href="/convo/{{ topic[0] }}">Join</a>
+                <br>
+            </li>
+          {% endif %}
+          </ul>
+        {% endfor %}
+
+
+      </div>
+      {% endfor %}
+
+    </div>
+
+
 <a href="/new">New messaging area</a>
     {% else %}
     <a href="login">Sign in</a>
     or
     <a href="register">Create an account</a>
-    <p>
-        <br>
-    </p>
     {% endif %}
 
     <style>
