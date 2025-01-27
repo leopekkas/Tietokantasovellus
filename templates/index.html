@@ -1,6 +1,6 @@
 <div class="header">
   <a href="/">
-    <h1><span style="color:#8B8000">Bee</span><span style="color:black"Chat</span></h1>
+    <h1><span style="color:#8B8000">Bee</span><span style="color:black">Chat</span></h1>
   </a>
   <hr>
 </div>
@@ -70,7 +70,7 @@
         {% for private_area in private_areas %}
         {% if session.user_id == private_area[2] %}
       <div>
-        <h4>{{ private_area[0] }}</h4> <a href="/add_users/{{ private_area[1] }}">Add members</a><br>
+        <h4>{{ private_area[0] }}</h4> <a href="/add_users/{{ private_area[1] }}">Start a new topic</a><br>
         <a href="/new/{{ private_area[1] }}">Start a new topic of conversation</a></p>
         <hr>
         {% for topic in topics %}
@@ -84,7 +84,7 @@
       </div>
       {% else %}
       <div>
-        <h4>{{ private_area[0] }}</h4> | <a href="/new/{{ private_area[1] }}">Start a new topic of conversation</a></p>
+        <h4>{{ private_area[0] }}</h4> | <a href="/new/{{ private_area[1] }}">Start a new topic</a></p>
         <hr>
         {% for topic in topics %}
           {% if topic[2] == private_area[1] %}
@@ -120,13 +120,14 @@
   }
 
   .grid>div {
-    background-color: #8B8000;
+    background-color: #fae82b;
     padding: 3fr;
     border-radius: 3px;
   }
 
   .grid>div>a {
-    color: #8B8000;
+    margin-left: 10px;
+    color: #2b2701;
   }
 
   .header {
@@ -145,7 +146,7 @@
   }
 
   body>a {
-    color: #8B8000
+    color: #6b8deb
   }
 
   h2 {
