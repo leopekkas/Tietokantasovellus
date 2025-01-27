@@ -1,47 +1,81 @@
 <div class="header">
-    <a href="/"><h1><span style="color:yellow">Bee</span>Chat</h1></a>
-    <hr>
+  <a href="/">
+    <h1><span style="color:#8B8000">Bee</span><span style="color:black"Chat</span></h1>
+  </a>
+  <hr>
 </div>
 
-<h3><b>{{ topic[1] }}</b></h3><br><br>
-{% for message in messages %}
-  {% if session.user_id == message[3] %}
-  <div class="messagebox"><b>{{ message[2] }}</b>
+<body>
+  <h3><b>{{ topic[1] }}</b></h3><br><br>    
+    
+  {% for message in messages %}
+    {% if session.user_id == message[3] %}
+    <div class="messagebox"><b>{{ message[2] }}</b>
       | <form action="/edit/{{ message[0] }}" , method="POST">
-          <input type="hidden" name="message_id" value="{{ message[0] }}">
-          <input type="submit" value="edit">
+      <input type="hidden" name="message_id" value="{{ message[0] }}">
+      <input type="submit" value="edit">
       </form>
-  {% endif %}
-{% endfor %}
-
-{% if session.user_id %}
-    <form action="/send" method="POST">
-    <textarea name="message" rows="6" cols="40"></textarea><br>
+      
+      <form action="/delete" , method="POST">
+        <input type="submit" value="delete">
+        <hr><br>{{ message[1] }}
+    </div>
+      <input type="hidden" name="message_id" value="{{ message[0] }}">
+      <input type="hidden" name="id" value="{{ topic[0] }}">
+      <br>
+      </form>
+    {% else %}
+    <div class="messagebox"><b>{{ message[2] }}</b>
+      <hr><br>{{ message[1] }}
+    </div>
+    <br>
+    {% endif %}
+  {% endfor %}
+    
+  {% if session.user_id %}
+  <form action="/send" method="POST">
+    <textarea name="message" rows="6" cols="40" placeholder="Write here.."></textarea><br>
     <p>
-    <input type="submit" value="Send">
-    <input type="hidden" name="id" value="{{ topic[0] }}">
-    </form>
-{% endif %}
+      <input type="submit" value="Send">
+      <input type="hidden" name="id" value="{{ topic[0] }}">
+  </form>
+  {% else %}
+    You need to sign to add messages
+  {% endif %}
 
-<hr>
-<a href="/">Back to front page</a>
+  <hr>
+  <a href="/">Back to home</a>
+</body>
+
 
 <style>
     .messagebox {
-        background-color: whitesmoke;
-        color: black;
-        padding: 10px;
-        width: 400px;
+        background-color: rgb(226, 225, 225);
+        color: rgb(0, 0, 0);
+        padding: 20px;
+        width: 500px;
         height: 50px, auto;
         border-style: inset;
         border-color: rgb(0, 0, 0);
-        border-width: 2px;
+        border-width: 3px;
     }
-    a {
-        color: rgb(0, 0, 0);
+    .header {
+        padding-top: 30px;
+        text-align: left;
+        
+    }
+    
+    .header > a {
         text-decoration: none;
+        color: inherit;
+        font-size: large;
     }
-    p {
-        text-indent: 262px;
+
+    body>a {
+        color: #6b8deb;
+
+
     }
+
+    
 </style>

@@ -1,11 +1,37 @@
-<h1><span style="color:yellow">Bee</span>Chat</h1>
-<hr>
-<br>
-<form action="/login" method="POST">
-Username: <input type="text" name="username">
-<p>
-    Salasana: <input type="password" name="password">
-<p>
-    <input type="submit" value="Sign in">
-</form>
-Create a new account here: <a href="/register"></a>
+<div class="header">
+  <a href="/">
+    <h1><span style="color:#8B8000">Bee</span><span style="color:black"Chat</span></h1>
+  </a>
+  <hr>
+</div>
+
+<body>
+  <form action="/login" method="POST">
+    Username: <input type="text" name="username">
+    <p>
+      Salasana: <input type="password" name="password">
+    <p>
+      <input type="submit" value="Sign in">
+  </form>
+  Create a new account here: <a href="/register"></a>
+  
+  <hr>
+  <a href="/">Back to home</a>
+</body>
+
+<style>
+  .header {
+    padding-top: 30px;
+    text-align: left;      
+  }
+        
+  .header > a {
+    text-decoration: none;
+    color: inherit;
+    font-size: large;
+  }
+        
+  body > a {
+    color: #6b8deb;          
+  }
+</style>

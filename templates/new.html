@@ -1,17 +1,41 @@
-<h1><span style="color:yellow">Bee</span>Chat</h1>
-<hr>
-<br>
-<form action="/create" method="POST">
-    <select name="area">
-        <option disabled selected>Area</option>
-        {% for area in areas %}
-        <option name="choice" value="{{ area[0] }}">{{ area[0] }}</option>
-        {% endfor %}
-    </select>
-<p><b>Topic:</b><br>
-<input type="text" name="topic">
-<br>
-<b>Message:</b><br>
-<textarea name="message" rows="6" cols="40"></textarea> </p><br>
-<input type="submit" value="Create a new message chain">
-</form>
+<div class="header">
+  <a href="/">
+    <h1><span style="color:#8B8000">Bee</span><span style="color:black"Chat</span></h1>
+  </a>
+  <hr>
+</div>
+
+<body>
+  <p>
+    Creating a new conversation topic to <b>{{ area }}</b>
+  </p>
+  <form action="/create" method="POST">
+    <p><b>Topic:</b><br>
+      <input type="text" name="topic">
+      <br>
+      <b>Message:</b><br>
+      <textarea name="message" rows="6" cols="40"></textarea>
+      <input type="hidden" name="id" value="{{ id }}">
+    </p><br>
+    <input type="submit" value="Create">
+  </form>
+  <hr>
+  <a href="/">Back to home</a>
+</body>
+
+<style>
+  .header {
+    padding-top: 30px;
+    text-align: left;
+  }
+
+  .header>a {
+    text-decoration: none;
+    color: inherit;
+    font-size: large;
+  }
+
+  body>a {
+    color: #6b8deb;
+  }
+</style>

@@ -1,16 +1,35 @@
-<h1><span style="color:pink">Bee</span>Chat</h1>
-<hr>
+<div class="header">
+  <a href="/">
+    <h1><span style="color:#8B8000">Bee</span><span style="color:black"Chat</span></h1>
+  </a>
+  <hr>
+</div>
 <br>
-<form action="/create_private_area" method="POST">
+
+<body>
+  <form action="/create_private_area" method="POST">
     <p><b>Name your area: </b><br>
-        <input type="text" name="theme"><br>
+      <input type="text" name="theme"><br>
     </p>
     <input type="submit" value="Create">
-</form>
-<hr>
-<a href="/">Back to front page</a>
+  </form>
+  <hr>
+  <a href="/">Back to home</a>
+</body>
+
 <style>
-    a {
-        color: cornflowerblue;
-    }
+  .header {
+    padding-top: 30px;
+    text-align: left;
+  }
+
+  .header>a {
+    text-decoration: none;
+    color: inherit;
+    font-size: large;
+  }
+
+  body>a {
+    color: #6b8deb;
+  }
 </style>

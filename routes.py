@@ -11,7 +11,7 @@ def index():
     areas = result.fetchall()
     result = db.session.execute(text("SELECT id, topic, area_id FROM topics ORDER BY id ASC"))
     topics = result.fetchall()
-    
+
     return render_template("index.html", areas=areas, topics=topics)
 
 @app.route("/login", methods=["GET","POST"])
@@ -49,7 +49,7 @@ def register():
 def new(id):
     result = db.session.execute(text("SELECT name FROM areas WHERE id=:id"))
     area = result.fetchone()[0]
-    return render_template("new.html", if=if, area=area)
+    return render_template("new.html", id=id, area=area)
 
 @app.route("/create", methods=["POST"])
 def create():
@@ -66,7 +66,7 @@ def create():
     if message != "":
         sql = "INSERT INTO messages(message, sender_id, topic_id, visibility, sent_at) VALUES (:message, :sender_id, :topic_id, :visibility, NOW())"
         db.session.execute(sql, {"message":message, "sender_id":starter_id, "topic_id":topic_id, "visibility":1})
-    	db.session.commit()
+        db.session.commit()
     return redirect("/")
 
 @app.route("/convo/<int:id>")
@@ -75,7 +75,7 @@ def convo(id):
     result = db.session.execute(sql, {"id":id})
     topic = result.fetchone()
     if topic == None:
-	return render_template("error.html", message="No conversations in this topic")
+      return render_template("error.html", message="No conversations in this topic")
     visibility=1
     sql = "SELECT messages.id, messages.message, users.username, users.id FROM messages, users WHERE messages.topic_id=:id AND visibility=:visibility AND messages.sender_id=users.id ORDER BY sent_at ASC"
     result = db.session.execute(sql, {"id":id, "visibility":visibility})
@@ -114,7 +114,7 @@ def search():
     if word == "":
         return redirect("/")
     sql = "SELECT messages.message, users.username, topics.id FROM messages, users, topics WHERE visibility=:visibility AND messages.sender_id=users.id AND topics.id=messages.topic_id AND messages.message LIKE :word ORDER BY sent_at ASC"
-    result = db.session.execute(sql, {"visibility":visibility, "word":"%"+word+"%"})
+    result = db.session.execute(text(sql), {"visibility":visibility, "word":"%"+word+"%"})
     messages = result.fetchall()
     if len(messages)==0:
         return render_template("error.html", message = "No messages found with this search")
@@ -125,7 +125,7 @@ def update(id):
     sql = "SELECT message FROM messages WHERE id=:id"
     result = db.session.execute(sql, {"id":id})
     message = result.fetchone()[0]
-    return render_template("update.html", id=id, message=message)>
+    return render_template("update.html", id=id, message=message)
 
 @app.route("/update_message", methods=["POST"])
 def update_message():

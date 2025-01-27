@@ -1,15 +1,57 @@
-<h1><span style="color:yellow">Bee</span>Chat</h1>
-<hr>
+<div class="header">
+  <a href="/">
+    <h1><span style="color:#8B8000">Bee</span><span style="color:black"Chat</span></h1>
+  </a>
+  <hr>
+</div>
 <br>
-{% for message in messages %}
-<a href="/convo/{{ message[2] }}">{{ message[0] }}</a>| <b>{{ message[1] }}</b>
-<br>
-{% endfor %}
-<hr>
-<a href="/">Back to front page</a>
+
+<body>
+  <h3>Search results:</h3>
+  {% for message in messages %}
+
+  <p>
+    <li><a href="/convo/{{ message[2] }}">{{ message[0] }}</a>| <b>{{ message[1] }}</b></li>
+    <br>
+  <p>
+
+  {% endfor %}
+  <hr>
+  <a href="/">Back to home</a>
+</body>
+
 <style>
-    a {
-            color: cornflowerblue;
-            
-        }
+    .header {
+        padding-top: 30px;
+        text-align: left;
+
+    }
+
+    .header>a {
+        text-decoration: none;
+        color: inherit;
+        font-size: large;
+    }
+
+    body {
+        margin-left: 50px;
+    }
+
+    body  >a {
+        color: #6b8deb;
+
+    }
+
+    li > a {
+        color: #6b8deb
+
+    }
+
+    p {
+        margin-bottom: 30px;
+    }
+
+    h3 {
+        text-decoration: underline;
+    }
 </style>
