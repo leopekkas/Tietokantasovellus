@@ -67,36 +67,36 @@
       {% endif %}
 
       <p>
-        {% for private_area in private_areas %}
+      {% for private_area in private_areas %}
         {% if session.user_id == private_area[2] %}
-      <div>
-        <h4>{{ private_area[0] }}</h4> <a href="/add_users/{{ private_area[1] }}">Start a new topic</a><br>
-        <a href="/new/{{ private_area[1] }}">Start a new topic of conversation</a></p>
+        <div>
+        <h4>{{ private_area[0] }}</h4> <a href="/add_users/{{ private_area[1] }}">Add members into this area</a><br>
+        <a href="/new/{{ private_area[1] }}">Start a new topic</a></p>
         <hr>
         {% for topic in topics %}
           {% if topic[2] == private_area[1] %}
           <ul>
-          <li>{{ topic[1] }} | <a href="/convo/{{ topic[0] }}">View</a><br></li>
-          {% endif %}
-      </ul>
-        {% endfor %}
-
-      </div>
-      {% else %}
-      <div>
-        <h4>{{ private_area[0] }}</h4> | <a href="/new/{{ private_area[1] }}">Start a new topic</a></p>
-        <hr>
-        {% for topic in topics %}
-          {% if topic[2] == private_area[1] %}
-          <ul>
-          <li>{{ topic[1] }} | <a href="/convo/{{ topic[0] }}">View</a><br></li>
-          {% endif %}
+            <li>{{ topic[1] }} | <a href="/convo/{{ topic[0] }}">View</a><br></li>
+            {% endif %}
           </ul>
         {% endfor %}
 
-      </div>
-      {% endif %}
-      {% endfor %}
+        </div>
+        {% else %}
+        <div>
+          <h4>{{ private_area[0] }}</h4> | <a href="/new/{{ private_area[1] }}">Start a new topic</a></p>
+          <hr>
+          {% for topic in topics %}
+            {% if topic[2] == private_area[1] %}
+            <ul>
+            <li>{{ topic[1] }} | <a href="/convo/{{ topic[0] }}">View</a><br></li>
+            {% endif %}
+            </ul>
+          {% endfor %}
+
+        </div>
+        {% endif %}
+        {% endfor %}
     </p>
 
   </div>
@@ -167,7 +167,7 @@
 
 
   ul li {
-    background-color: rgb(244, 250, 167);
+    background-color: #fae82b;
     margin: 3px;
     list-style-type: none;
   }

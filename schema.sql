@@ -3,4 +3,9 @@ CREATE TABLE areas(id SERIAL PRIMARY KEY, name TEXT, user_id INTEGER REFERENCES 
 CREATE TABLE topics(id SERIAL PRIMARY KEY, topic TEXT, starter_id INTEGER REFERENCES users, area_id INTEGER REFERENCES areas, created_at TIMESTAMP);
 CREATE TABLE accessRights(area_id INTEGER REFERENCES areas, user_id INTEGER REFERENCES users);
 CREATE TABLE messages(id SERIAL PRIMARY KEY, message TEXT NOT NULL, sender_id INTEGER REFERENCES users, topic_id INTEGER REFERENCES topics, visibility INTEGER, sent_at TIMESTAMP);
-INSERT INTO areas (name) VALUES ('Hobbies');
+INSERT INTO areas (name) VALUES ('Games');
+INSERT INTO areas (name) VALUES ('Books');
+INSERT INTO areas (name) VALUES ('Music');
+INSERT INTO areas (name) VALUES ('Coursework');
+INSERT INTO areas (name) VALUES ('Food');
+INSERT INTO areas (name) VALUES ('Animals');

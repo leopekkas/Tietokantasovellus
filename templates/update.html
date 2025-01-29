@@ -1,0 +1,46 @@
+<div class="header">
+  <a href="/">
+    <h1><span style="color:#8B8000">Bee</span><span style="color:black">Chat</span></h1>
+  </a>
+  <hr>
+</div>
+
+
+<body>
+  <form action="/update_message" method="POST">
+    <textarea name="message" rows="6" cols="40">{{ message }}</textarea><br>
+    <p>
+      <input type="submit" value="Update">
+      <input type="hidden" name="id" value="{{ id }}">
+    </form>
+
+
+  <hr>
+  <a href="/">Back to front page</a>
+</body>
+
+<style>
+    .header {
+    padding-top: 30px;
+    text-align: left;      
+  }
+    
+  .header > a {
+    text-decoration: none;
+    color: inherit;
+    font-size: large;
+  }
+    
+  a {
+    color: #6b8deb;          
+  }
+
+  a {
+    color: #6b8deb;
+
+  }
+
+  p {
+    text-indent: 262px;
+  }
+</style>

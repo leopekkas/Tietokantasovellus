@@ -7,24 +7,33 @@ import users
 
 @app.route("/")
 def index():
-  result  = db.session.execute(text("SELECT name, id FROM areas ORDER BY id ASC"))
-  areas = result.fetchall()
-  result = db.session.execute(text("SELECT id, topic, area_id FROM topics ORDER BY id ASC"))
-  topics = result.fetchall()
-
-  return render_template("index.html", areas=areas, topics=topics)
+  sql = "SELECT name, id, user_id FROM areas WHERE user_id IS NULL"
+  result = db.session.execute(text(sql))
+  userareas = result.fetchall()
+  resultsql = "SELECT id, topic, area_id FROM topics ORDER BY id DESC"
+  result = db.session.execute(text(resultsql))
+  alltopics = result.fetchall()
+  ifadmin = users.admin()  
+  user_id = users.user_id()
+  sql = "SELECT areas.name, areas.id, areas.user_id FROM areas, accessrights \
+    WHERE accessrights.user_id=:user_id AND accessrights.area_id=areas.id"
+  result = db.session.execute(text(sql), {"user_id":user_id})
+  private_areas = result.fetchall()
+  if private_areas == None:
+    private_areas = []
+  return render_template("index.html", areas = userareas, topics = alltopics, admin = ifadmin, private_areas = private_areas)
 
 @app.route("/login", methods=["GET","POST"])
 def login():
-  if request.method== "GET":
+  if request.method == "GET":
     return render_template("login.html")
-  if request.method=="POST":
-    user= request.form["username"]
-    pwd= request.form["password"]
+  if request.method == "POST":
+    user = request.form["username"]
+    pwd = request.form["password"]
     if users.login(user, pwd):
       return redirect("/")
     else:
-      return render_template("error.html", message="Wrong username or password")
+      return render_template("error.html", message = "Wrong username or password")
 
 @app.route("/logout")
 def logout():
@@ -48,7 +57,7 @@ def register():
 @app.route("/new/<int:id>")
 def new(id):
   sql = "SELECT name FROM areas WHERE id=:id"
-  result = db.session.execute(text(sql))
+  result = db.session.execute(text(sql), {"id":id})
   area = result.fetchone()[0]
   return render_template("new.html", id=id, area=area)
 
@@ -78,7 +87,7 @@ def convo(id):
   if topic == None:
     return render_template("error.html", message="No conversations in this topic")
   visibility=1
-  sql = "SELECT messages.id, messages.message, users.username, users.id FROM messages, users WHERE messages.topic_id=:id AND visibility=:visibility AND messages.sender_id=users.id ORDER BY sent_at ASC"
+  sql = "SELECT messages.id, messages.message, users.username, users.id FROM messages, users WHERE messages.topic_id=:id AND visibility=:visibility AND messages.sender_id=users.id"
   result = db.session.execute(text(sql), {"id":id, "visibility":visibility})
   messages = result.fetchall()
   return render_template("convo.html", topic=topic, messages=messages)
@@ -114,7 +123,7 @@ def search():
   visibility=1
   if word == "":
     return redirect("/")
-  sql = "SELECT messages.message, users.username, topics.id FROM messages, users, topics WHERE visibility=:visibility AND messages.sender_id=users.id AND topics.id=messages.topic_id AND messages.message LIKE :word ORDER BY sent_at ASC"
+  sql = "SELECT messages.message, users.username, topics.id FROM messages, users, topics WHERE visibility=:visibility AND messages.sender_id=users.id AND topics.id=messages.topic_id AND messages.message LIKE :word"
   result = db.session.execute(text(sql), {"visibility":visibility, "word":"%"+word+"%"})
   messages = result.fetchall()
   if len(messages)==0:

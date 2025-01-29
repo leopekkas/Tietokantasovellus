@@ -23,6 +23,7 @@ def register(username, password, admin):
   hash_value = generate_password_hash(password)
   if admin == None:
     admin = 0
+  
   try: 
     sql = "INSERT INTO users (username, password, admin) VALUES (:username, :password, :admin)"
     db.session.execute(text(sql), {"username":username, "password":hash_value, "admin":admin})
@@ -44,7 +45,6 @@ def check_rights(user_id, area_id):
   sql = "SELECT user_id FROM accessrights WHERE user_id=:user_id AND area_id=:area_id"
   result = db.session.execute(text(sql), {"user_id":user_id, "area_id":area_id})
   rights = result.fetchone()
-  print(rights)
   if rights == None:
     return False
   else:
