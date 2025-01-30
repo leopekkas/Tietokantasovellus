@@ -21,7 +21,7 @@ Klikkaa linkistä: [https://tietokantasovellus-saraste.fly.dev/](https://tietoka
 
 ### Käynnistäminen paikallisesti:
 
-Määritä ympäristömuuttuja `DATABSE_URL` osoittamaan PostgreSQL-tietokantaasi.
+Määritä ympäristömuuttuja `DATABASE_URL` osoittamaan PostgreSQL-tietokantaasi.
 
 **Huom!** Sovellus on kehitetty käyttäen PostgreSQL 12.15 -versiota. 
 
